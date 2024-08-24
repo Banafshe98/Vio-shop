@@ -4,7 +4,10 @@ interface Ilayout {
   children: React.ReactNode;
 }
 export const Layout = ({ children }: Ilayout) => {
-  return <>
-  <Navbar/>
-  {children}</>;
+  return (
+    <>
+      <Navbar />
+      {children}
+    </>
+  );
 };

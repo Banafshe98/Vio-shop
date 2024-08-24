@@ -6,10 +6,9 @@ export const Navbar = () => {
     <div className="h-10 border-b shadow flex items-center ">
       <Container>
         <div className="flex flex-row-reverse justify-between ">
-          <div className="flex justify-between">
-            <ul className="flex flex-row-reverse">
+            <ul className="flex">
               <li className="ml-4 mr-4">
-                <Link to={"/Home"}>خانه</Link>
+                <Link to={"/"}>خانه</Link>
               </li>
 
               <li className="ml-4">
@@ -24,8 +23,7 @@ export const Navbar = () => {
                 <Link to={"/Contact"}>ارتباط با ما</Link>
               </li>
             </ul>
-          </div>
-          <div className="flex ml-4">
+          <div>
             <button>سبد خرید</button>
           </div>
         </div>
