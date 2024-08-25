@@ -6,6 +6,6 @@ interface IContainer {
 
 export const Container: React.FC<IContainer> = ({ children }) => {
   return (
-    <div className="container mx-auto px-60">{children}</div>
+    <div className="container mx-auto px-52">{children}</div>
   );
 };
