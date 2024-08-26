@@ -1,4 +1,4 @@
-//import React from 'react';
+import React from 'react';
 import { Routes, Route} from "react-router-dom";
 import { Store } from "./pages/Store";
 import { Contact } from "./pages/Contact";
