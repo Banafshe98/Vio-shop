@@ -1,10 +1,10 @@
 import React from "react";
 
-interface IContainer {
+type IContainer = {
   children: React.ReactNode;
 }
 
-export const Container: React.FC<IContainer> = ({ children }) => {
+export const Container = ({ children }:IContainer) => {
   return (
     <div className="container mx-auto px-52">{children}</div>
   );
