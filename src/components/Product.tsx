@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import img1 from "../assets/Bracelet.jpg";
-import { Button } from "../components/Button";
-import { Container } from "../components/Container";
+import { Button } from "./Button";
+import { Container } from "./Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
@@ -32,7 +32,7 @@ export const Product = () => {
               <p className="text-indigo-500 text-4xl">۱۸۸/۰۰۰</p>
             </div>
             <div className="text-xl font-bold flex flex-row-reverse justify-between">
-              <Button variant="primary">اضافه به سبد خرید</Button>
+              <Button variant="success">اضافه به سبد خرید</Button>
               <div className="flex flex-row gap-5 items-center text-slate-400">
                 <FontAwesomeIcon icon={faXTwitter} />
                 <FontAwesomeIcon icon={faPaperPlane} />

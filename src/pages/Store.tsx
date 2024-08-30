@@ -1,4 +1,4 @@
-//import React from "react"
+import React from "react"
 import { Container } from "../components/Container"
 import { ProductItem } from "../components/ProductItem"
 import { Link } from "react-router-dom"
