@@ -4,23 +4,24 @@ import { ProductItem } from "../components/ProductItem";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { getProducts } from "../Services/api";
+import { Products } from "../types/server";
 export const Store = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Products[]>([]);
 
   useEffect(() => {
     getProducts().then((result) => {
       setProducts(result);
     });
   }, []);
-
+  console.log(products); 
   return (
     <Container>
       <h1 className="text-right mt-5">Vio Shop</h1>
       <div className="grid grid-cols-4 gap-4 mt-5">
         {products.map((item) => (
-          <Link to={`/Product/${1}`}>
-            <ProductItem />
-          </Link> 
+          <Link to={`/Product/${item.id}`}>
+            <ProductItem {...item}/>
+          </Link>
         ))}
       </div>
     </Container>
