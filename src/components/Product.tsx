@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "./Button";
 import { Container } from "./Container";
@@ -9,19 +9,26 @@ import {
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { Products } from "../types/server";
+import { IProduct as IProduct } from "../types/server";
+import { getProduct } from "../Services/api";
 
-type Product = Products;
-interface Params {
-  id: string; // Define the type for your route parameters
-}
-export const Product = ({ title, price, description,image , category }: Product) => {
-  const params = useParams<Params>(); // Call useParams to get the parameters
+export const Product = () => {
+  const params = useParams<{id : string}>();
+
+  const [product, setProduct] = useState<IProduct>()
+
+  useEffect(() =>{
+    getProduct(params.id as string).then(data=>{
+      setProduct(data);
+      
+    })
+  }, []);
+ 
   return (
     <div>
       <Container>
         <div className="flex flex-row-reverse mt-20">
-          <img className="rounded w-5/12" src={image} alt="" />
+          <img className="rounded w-5/12" src={product?.image} alt="" />
           <div className="flex flex-col pr-7 gap-10 w-full">
             <div className="flex flex-row font-bold text-2xl space-x-2 justify-end items-center">
               <h1 className="text-black">{params.id}</h1>
@@ -30,7 +37,7 @@ export const Product = ({ title, price, description,image , category }: Product)
 
             <div className="flex flex-row items-center space-x-2 justify-end">
               <p className="text-indigo-500 text-lg">تومان</p>
-              <p className="text-indigo-500 text-4xl">{price}</p>
+              <p className="text-indigo-500 text-4xl">{product?.price}</p>
             </div>
             <div className="text-xl font-bold flex flex-row-reverse justify-between">
               <Button variant="success">اضافه به سبد خرید</Button>
@@ -42,9 +49,9 @@ export const Product = ({ title, price, description,image , category }: Product)
               </div>
             </div>
             <div className="text-right text-black text-lg leading-loose">
-              <p>جنس استیل</p>
-              <p>کاملا رنگ ثابت</p>
-              <p>بدون جنسیت</p>
+            <p className="line-clamp-1">{product?.description}</p>
+              <p className="line-clamp-1">{product?.description}</p>
+              <p className="line-clamp-1">{product?.description}</p>
             </div>
           </div>
         </div>

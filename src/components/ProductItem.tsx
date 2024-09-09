@@ -1,7 +1,7 @@
 import React from "react";
-import { Products } from "../types/server";
+import { IProduct } from "../types/server";
 
-type ProductItem = Products;
+type ProductItem = IProduct;
 export const ProductItem = ({ title, price, description,image , category }: ProductItem) => {
   return (
     <div className="shadow border rounded pb-3">
