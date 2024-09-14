@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container } from "../components/Container";
 import CartItem from "../components/CartItem";
 import { Button } from "../components/Button";
+import { ShoppingCartContext } from "../context/ShoppingCartContext";
 
 function Cart() {
+  const {cartItems} = useContext(ShoppingCartContext)
+
+  cartItems.map
   return (
     <Container>
       <div className="flex flex-nowrap justify-between mt-6 mb-4 p-6 bg-slate-300">

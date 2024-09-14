@@ -3,13 +3,19 @@ import { createContext, useState } from "react";
 interface ShoppingCartProvider {
   children: React.ReactNode;
 }
-export const ShoppingCartContext = createContext({});
+
+interface ShoppingCartContext {
+  cartItems:[]
+}
+export const ShoppingCartContext = createContext<ShoppingCartContext>({
+  cartItems:[]
+});
 
 export const ShoppingCartProvider = ({ children }: ShoppingCartProvider) => {
-  const [CartItems, setCartItems] = useState([])
+  const [cartItems, setCartItems] = useState<[]>([])
 
   return (
-    <ShoppingCartContext.Provider value={{CartItems}}>
+    <ShoppingCartContext.Provider value={{cartItems}}>
       {children}
     </ShoppingCartContext.Provider>
   );

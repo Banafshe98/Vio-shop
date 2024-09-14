@@ -8,12 +8,12 @@ import "./index.css";
 import { Layout } from "./components/Layout";
 import { Product } from "./components/Product";
 import Cart from "./pages/Cart";
-import { ShoppingCartContext } from "./context/ShoppingCartContext";
+import { ShoppingCartProvider } from "./context/ShoppingCartContext";
 
 function App() {
   
   return (
-    <ShoppingCartContext.Provider value={{}}>
+    <ShoppingCartProvider>
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -24,7 +24,7 @@ function App() {
           <Route path="/Cart" element={<Cart />} />
         </Routes>
       </Layout>
-    </ShoppingCartContext.Provider>
+    </ShoppingCartProvider>
   );
 }
 
