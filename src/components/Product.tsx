@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "./Button";
 import { Container } from "./Container";
@@ -11,11 +11,14 @@ import {
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { IProduct as IProduct } from "../types/server";
 import { getProduct } from "../Services/api";
+import { useShoppingCartContext } from "../context/ShoppingCartContext";
 
 export const Product = () => {
   const params = useParams<{id : string}>();
 
   const [product, setProduct] = useState<IProduct>()
+
+  const {cartItems} = useShoppingCartContext()
 
   useEffect(() =>{
     getProduct(params.id as string).then(data=>{
