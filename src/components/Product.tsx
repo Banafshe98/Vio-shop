@@ -14,21 +14,20 @@ import { getProduct } from "../Services/api";
 import { useShoppingCartContext } from "../context/ShoppingCartContext";
 
 export const Product = () => {
-  const params = useParams<{id : string}>();
+  const params = useParams<{ id: string }>();
 
-  const [product, setProduct] = useState<IProduct>()
+  const [product, setProduct] = useState<IProduct>();
 
-  const {handleIncreaseProductQty , cartItems} = useShoppingCartContext()
+  const {handleDecreaseProductQty, handleIncreaseProductQty, cartItems } = useShoppingCartContext();
 
-  useEffect(() =>{
-    getProduct(params.id as string).then(data=>{
+  useEffect(() => {
+    getProduct(params.id as string).then((data) => {
       setProduct(data);
-      
-    })
+    });
   }, []);
- 
+
   console.log(cartItems);
-  
+
   return (
     <div>
       <Container>
@@ -45,9 +44,26 @@ export const Product = () => {
               <p className="text-indigo-500 text-4xl">{product?.price}</p>
             </div>
             <div className="text-xl font-bold flex flex-row-reverse justify-between">
-              <div className="flex-row justify-center"> <Button onClick={()=>handleIncreaseProductQty(parseInt(params.id as string))} variant="success">اضافه به سبد خرید</Button>
-              <Button onClick={()=>handleIncreaseProductQty(parseInt(params.id as string))} variant="success">حذف از سبد خرید-</Button></div>
-             
+              <div className="flex-row justify-center">
+                {" "}
+                <Button
+                  onClick={() =>
+                    handleIncreaseProductQty(parseInt(params.id as string))
+                  }
+                  variant="success"
+                >
+                  اضافه به سبد خرید
+                </Button>
+                <Button
+                  onClick={() =>
+                    handleDecreaseProductQty(parseInt(params.id as string))
+                  }
+                  variant="success"
+                >
+                  حذف از سبد خرید-
+                </Button>
+              </div>
+
               <div className="flex flex-row gap-5 items-center text-slate-400">
                 <FontAwesomeIcon icon={faXTwitter} />
                 <FontAwesomeIcon icon={faPaperPlane} />
@@ -56,13 +72,14 @@ export const Product = () => {
               </div>
             </div>
             <div className="text-right text-black text-lg leading-loose">
-            <p className="line-clamp-1">{product?.description}</p>
+              <p className="line-clamp-1">{product?.description}</p>
               <p className="line-clamp-1">{product?.description}</p>
               <p className="line-clamp-1">{product?.description}</p>
             </div>
           </div>
         </div>
       </Container>
-    </div> 
+    </div>
   );
 };
+  
