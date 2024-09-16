@@ -11,22 +11,41 @@ interface CartItem {
 
 interface ShoppingCartContext {
   cartItems: CartItem[];
+  handleIncreaseProductQty: (id: number) => void;
 }
 export const ShoppingCartContext = createContext({} as ShoppingCartContext);
-  
-export const useShoppingCartContext =()=>{
-  return useContext(ShoppingCartContext)
-}
+
+export const useShoppingCartContext = () => {
+  return useContext(ShoppingCartContext);
+};
 
 export const ShoppingCartProvider = ({ children }: ShoppingCartProvider) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  const handleIncreaseProductQty =(id:number)=>{
-    
+  const handleIncreaseProductQty = (id: number) => {
+    setCartItems((currentItems) => {
+      let selectedItem = currentItems.find((item) => item.id == id);
+      if (selectedItem == null) {
+        return [...currentItems, { id: id, qty: 1 }];
+      } else {
+        return currentItems.map((item) => {
+          if (item.id == id) {
+            return { ...item, qty: item.qty + 1 };
+          } else {
+            return item;
+          }
+        });
+      }
+    });
+  };
+
+  const handleDecreaseProductQty = (id:number)=>{
+    setCartItems
+
   }
 
   return (
-    <ShoppingCartContext.Provider value={{ cartItems }}>
+    <ShoppingCartContext.Provider value={{ cartItems , handleIncreaseProductQty }}>
       {children}
     </ShoppingCartContext.Provider>
   );

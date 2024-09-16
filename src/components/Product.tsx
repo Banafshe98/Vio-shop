@@ -18,7 +18,7 @@ export const Product = () => {
 
   const [product, setProduct] = useState<IProduct>()
 
-  const {cartItems} = useShoppingCartContext()
+  const {handleIncreaseProductQty , cartItems} = useShoppingCartContext()
 
   useEffect(() =>{
     getProduct(params.id as string).then(data=>{
@@ -27,6 +27,8 @@ export const Product = () => {
     })
   }, []);
  
+  console.log(cartItems);
+  
   return (
     <div>
       <Container>
@@ -43,7 +45,9 @@ export const Product = () => {
               <p className="text-indigo-500 text-4xl">{product?.price}</p>
             </div>
             <div className="text-xl font-bold flex flex-row-reverse justify-between">
-              <Button variant="success">اضافه به سبد خرید</Button>
+              <div className="flex-row justify-center"> <Button onClick={()=>handleIncreaseProductQty(parseInt(params.id as string))} variant="success">اضافه به سبد خرید</Button>
+              <Button onClick={()=>handleIncreaseProductQty(parseInt(params.id as string))} variant="success">حذف از سبد خرید-</Button></div>
+             
               <div className="flex flex-row gap-5 items-center text-slate-400">
                 <FontAwesomeIcon icon={faXTwitter} />
                 <FontAwesomeIcon icon={faPaperPlane} />
