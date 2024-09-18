@@ -18,7 +18,8 @@ export const Product = () => {
 
   const [product, setProduct] = useState<IProduct>();
 
-  const {handleDecreaseProductQty, handleIncreaseProductQty, cartItems } = useShoppingCartContext();
+  const { handleDecreaseProductQty, handleIncreaseProductQty, cartItems , getProductQty } =
+    useShoppingCartContext();
 
   useEffect(() => {
     getProduct(params.id as string).then((data) => {
@@ -54,6 +55,7 @@ export const Product = () => {
                 >
                   اضافه به سبد خرید
                 </Button>
+                {getProductQty(parseInt(params.id as string))}
                 <Button
                   onClick={() =>
                     handleDecreaseProductQty(parseInt(params.id as string))
@@ -82,4 +84,3 @@ export const Product = () => {
     </div>
   );
 };
-  
