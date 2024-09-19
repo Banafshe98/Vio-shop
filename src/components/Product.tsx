@@ -18,8 +18,12 @@ export const Product = () => {
 
   const [product, setProduct] = useState<IProduct>();
 
-  const { handleDecreaseProductQty, handleIncreaseProductQty, cartItems , getProductQty } =
-    useShoppingCartContext();
+  const {
+    handleDecreaseProductQty,
+    handleIncreaseProductQty,
+    cartItems,
+    getProductQty,
+  } = useShoppingCartContext();
 
   useEffect(() => {
     getProduct(params.id as string).then((data) => {
@@ -46,24 +50,37 @@ export const Product = () => {
             </div>
             <div className="text-xl font-bold flex flex-row-reverse justify-between">
               <div className="flex-row justify-center">
-                {" "}
-                <Button
-                  onClick={() =>
-                    handleIncreaseProductQty(parseInt(params.id as string))
-                  }
-                  variant="success"
-                >
-                  اضافه به سبد خرید
-                </Button>
-                {getProductQty(parseInt(params.id as string))}
-                <Button
-                  onClick={() =>
-                    handleDecreaseProductQty(parseInt(params.id as string))
-                  }
-                  variant="success"
-                >
-                  حذف از سبد خرید-
-                </Button>
+                {getProductQty(parseInt(params.id as string)) === 0 ? (
+                  <Button
+                    onClick={() =>
+                      handleIncreaseProductQty(parseInt(params.id as string))
+                    }
+                    variant="success"
+                  >
+                    اضافه به سبد خرید
+                  </Button>
+                ) : (
+                  <div className="">
+                    <Button
+                      onClick={() =>
+                        handleIncreaseProductQty(parseInt(params.id as string))
+                      }
+                      variant="success"
+                    >
+                      اضافه به سبد خرید
+                    </Button>
+                    <span> {getProductQty(parseInt(params.id as string))}</span>
+
+                    <Button
+                      onClick={() =>
+                        handleDecreaseProductQty(parseInt(params.id as string))
+                      }
+                      variant="success"
+                    >
+                      حذف از سبد خرید-
+                    </Button>
+                  </div>
+                )}
               </div>
 
               <div className="flex flex-row gap-5 items-center text-slate-400">
