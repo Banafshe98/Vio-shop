@@ -22,7 +22,8 @@ export const Product = () => {
     handleDecreaseProductQty,
     handleIncreaseProductQty,
     cartItems,
-    getProductQty,
+    getProductQty, 
+    handleRemoveProduct
   } = useShoppingCartContext();
 
   useEffect(() => {
@@ -77,8 +78,9 @@ export const Product = () => {
                       }
                       variant="success"
                     >
-                      حذف از سبد خرید-
+                      کم
                     </Button>
+                    <Button variant="danger" onClick={()=>handleRemoveProduct(parseInt(params.id as string))}>حذف از سبد خرید</Button>
                   </div>
                 )}
               </div>
