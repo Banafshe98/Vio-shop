@@ -15,11 +15,8 @@ function Cart() {
         <p>جمع قیمت</p>
       </div>
       <div className="mt-4">
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
+        
+        {cartItems.map(item=>(<CartItem {...item} />))}
       </div>
 
       <div className="text-right bg-gray-100 p-4 rounded">
