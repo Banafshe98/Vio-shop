@@ -9,9 +9,9 @@ import { Layout } from "./components/Layout";
 import { Product } from "./components/Product";
 import Cart from "./pages/Cart";
 import { ShoppingCartProvider } from "./context/ShoppingCartContext";
+import privateRoute from "./components/privateRoute";
 
 function App() {
-  
   return (
     <ShoppingCartProvider>
       <Layout>
@@ -19,9 +19,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/Store" element={<Store />} />
           <Route path="/Product/:id" element={<Product />} />
+          <Route element={<privateRoute/>}>
+            <Route path="/Cart" element={<Cart />} />
+          </Route>
           <Route path="/Contact" element={<Contact />} />
           <Route path="/About" element={<About />} />
-          <Route path="/Cart" element={<Cart />} />
         </Routes>
       </Layout>
     </ShoppingCartProvider>
