@@ -4,7 +4,7 @@ import Cart from "../pages/Cart";
 import { useShoppingCartContext } from "../context/ShoppingCartContext";
 
 export const Navbar = () => {
-  const { cartQty } = useShoppingCartContext();
+  const { cartQty, handleLogOut } = useShoppingCartContext();
 
   return (
     <div className="h-10 border-b shadow flex items-center">
@@ -27,7 +27,20 @@ export const Navbar = () => {
               <Link to={"/Contact"}>ارتباط با ما</Link>
             </li>
           </ul>
-          <div className="relative">
+          <div className="relative flex flex-nowrap gap-4">
+            <button onClick={handleLogOut}>
+              <svg
+              className="mb-2"
+                xmlns="http://www.w3.org/2000/svg"
+                height="24px"
+                viewBox="0 -960 960 960"
+                width="24px"
+                fill="#5f6368"
+              >
+                <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
+              </svg>
+            </button>
+
             <Link to="./Cart">
               <button>
                 <svg

@@ -1,5 +1,6 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { login } from "../Services/api";
 
 interface ShoppingCartProvider {
   children: React.ReactNode;
@@ -13,12 +14,13 @@ interface CartItem {
 interface ShoppingCartContext {
   cartItems: CartItem[];
   handleIncreaseProductQty: (id: number) => void;
-  handleDecreaseProductQty:(id:number)=>void;
-  getProductQty:(id:number) => number;
-  handleRemoveProduct:(id: number) => void;
-  cartQty:number;
-  isLogin:boolean;
-  handleLogin:()=>void;
+  handleDecreaseProductQty: (id: number) => void;
+  getProductQty: (id: number) => number;
+  handleRemoveProduct: (id: number) => void;
+  cartQty: number;
+  isLogin: boolean;
+  handleLogin: () => void;
+  handleLogOut: () => void;
 }
 
 export const ShoppingCartContext = createContext({} as ShoppingCartContext);
@@ -28,8 +30,10 @@ export const useShoppingCartContext = () => {
 };
 
 export const ShoppingCartProvider = ({ children }: ShoppingCartProvider) => {
-  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>("cartItems", []);
-
+  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
+    "cartItems",
+    []
+  );
 
   const handleIncreaseProductQty = (id: number) => {
     setCartItems((currentItems) => {
@@ -48,13 +52,13 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProvider) => {
     });
   };
 
-  const handleDecreaseProductQty = (id:number)=>{
-    setCartItems((currentItems)=> {
-      let selectedItem = currentItems.find((item) => item.id == id) 
+  const handleDecreaseProductQty = (id: number) => {
+    setCartItems((currentItems) => {
+      let selectedItem = currentItems.find((item) => item.id == id);
 
-      if(selectedItem?.qty === 1) {
+      if (selectedItem?.qty === 1) {
         return currentItems.filter((item) => item.id !== id);
-      }  else {
+      } else {
         return currentItems.map((item) => {
           if (item.id == id) {
             return { ...item, qty: item.qty - 1 };
@@ -64,30 +68,55 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProvider) => {
         });
       }
     });
-    };
+  };
 
+  const getProductQty = (id: number) => {
+    return cartItems.find((item) => item.id == id)?.qty || 0;
+  };
 
+  const handleRemoveProduct = (id: number) => {
+    setCartItems((currentItems) =>
+      currentItems.filter((item) => item.id != id)
+    );
+  };
 
-    const getProductQty = (id:number)=>{
-      return cartItems.find(item => item.id == id)?.qty || 0
+  const cartQty = cartItems.reduce((totalQty, item) => totalQty + item.qty, 0);
+
+  const [isLogin, setIsLogin] = useState(false);
+
+  const handleLogin = () => {
+    login("Vio", "1234").finally(() => {
+      let token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTY3Mjc2NjAyOCwiZXhwIjoxNjcyODAyMDI4fQ.P1_rB3hJ5afwiG4TWXLq6jOAcVJkvQZ2Z-ZZOnQ1dZw";
+      localStorage.setItem("token", token);
+      setIsLogin(true);
+    });
+  };
+
+  const handleLogOut = () => {
+    setIsLogin(false);
+  };
+
+  useEffect(() => {
+    let token = localStorage.getItem("token")
+    if (token) {
+      setIsLogin(true);
     }
-  
-    
-    const handleRemoveProduct = (id:number) =>{
-      setCartItems(currentItems=> currentItems.filter(item => item.id != id)) 
-    }
-  
-
-    const cartQty= cartItems.reduce((totalQty,item) => totalQty + item.qty,0)
-
-    const [isLogin, setIsLogin] = useState(false)
-
-    const handleLogin = () => {
-      setIsLogin(true)
-    }
-
+  }, []);
   return (
-    <ShoppingCartContext.Provider value={{ cartItems , handleIncreaseProductQty , handleDecreaseProductQty , getProductQty , handleRemoveProduct , cartQty,isLogin }}>
+    <ShoppingCartContext.Provider
+      value={{
+        cartItems,
+        handleIncreaseProductQty,
+        handleDecreaseProductQty,
+        getProductQty,
+        handleRemoveProduct,
+        cartQty,
+        isLogin,
+        handleLogin,
+        handleLogOut,
+      }}
+    >
       {children}
     </ShoppingCartContext.Provider>
   );
