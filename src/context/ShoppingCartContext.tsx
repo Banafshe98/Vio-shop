@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { login } from "../Services/api";
+import { useNavigate } from "react-router-dom";
 
 interface ShoppingCartProvider {
   children: React.ReactNode;
@@ -19,7 +20,7 @@ interface ShoppingCartContext {
   handleRemoveProduct: (id: number) => void;
   cartQty: number;
   isLogin: boolean;
-  handleLogin: () => void;
+  handleLogin: (username:string,password:string) => void;
   handleLogOut: () => void;
 }
 
@@ -83,18 +84,23 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProvider) => {
   const cartQty = cartItems.reduce((totalQty, item) => totalQty + item.qty, 0);
 
   const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate()
 
-  const handleLogin = () => {
-    login("Vio", "1234").finally(() => {
+
+  const handleLogin = (username:string,password:string) => {
+    login(username, password).finally(() => {
       let token =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTY3Mjc2NjAyOCwiZXhwIjoxNjcyODAyMDI4fQ.P1_rB3hJ5afwiG4TWXLq6jOAcVJkvQZ2Z-ZZOnQ1dZw";
       localStorage.setItem("token", token);
       setIsLogin(true);
+      navigate("/");
     });
   };
 
   const handleLogOut = () => {
     setIsLogin(false);
+    navigate("/Login");
+    localStorage.removeItem("token")
   };
 
   useEffect(() => {
