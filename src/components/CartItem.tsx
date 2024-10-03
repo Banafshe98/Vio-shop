@@ -37,7 +37,7 @@ function CartItem({id,qty}: ICartItem) {
           <div>
             <Button onClick={()=>{handleIncreaseProductQty(id)}} variant="primary">+</Button>
             <span className="p-2">{qty}</span>
-            <Button onClick={()=>{handleIncreaseProductQty(id)}} variant="primary">-</Button>
+            <Button onClick={()=>{handleDecreaseProductQty(id)}} variant="primary">-</Button>
           </div>
 
           <Button onClick={()=> {handleRemoveProduct(id)}} variant="danger">حذف از سبد خرید</Button>

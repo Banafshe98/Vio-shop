@@ -16,6 +16,7 @@ function Cart() {
       </div>
       <div className="mt-4">
         
+        
         {cartItems.map(item=>(<CartItem {...item} />))}
       </div>
 
