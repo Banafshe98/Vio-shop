@@ -13,23 +13,25 @@ import PrivateRoute from "./components/PrivateRoute";
 import { Login } from "./pages/Login";
 
 function App() {
-
-  const {isLogin} = useShoppingCartContext()
+  const { isLogin } = useShoppingCartContext();
 
   return (
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Store" element={<Store />} />
-          <Route path="/Product/:id" element={<Product />} />
-          <Route path="/Login" element={isLogin ? <Navigate to="/"/> : <Login/>}/>
-          <Route element={<PrivateRoute/>}>
-            <Route path="/Cart" element={<Cart />} />
-          </Route>
-          <Route path="/Contact" element={<Contact />} />
-          <Route path="/About" element={<About />} />
-        </Routes>
-      </Layout>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/Store" element={<Store />} />
+        <Route path="/Product/:id" element={<Product />} />
+        <Route
+          path="/Login"
+          element={isLogin ? <Navigate to="/" /> : <Login />}
+        />
+        <Route element={<PrivateRoute />}>
+          <Route path="/Cart" element={<Cart />} />
+        </Route>
+        <Route path="/Contact" element={<Contact />} />
+        <Route path="/About" element={<About />} />
+      </Routes>
+    </Layout>
   );
 }
 
